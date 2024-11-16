@@ -15,14 +15,12 @@ services:
       - box:/box
     depends_on:
       - db
-    networks:
-      - reactive-net
   db:
     image: mongo:5.0.9
     environment:
-      MONGO_INITDB_ROOT_USERNAME: reactive-flashcards
-      MONGO_INITDB_ROOT_PASSWORD: reactive-flashcards
-      MONGO_INITDB_DATABASE: reactive-flashcards
+      MONGO_INITDB_ROOT_USERNAME: reactive-flashcard
+      MONGO_INITDB_ROOT_PASSWORD: reactive-flashcard
+      MONGO_INITDB_DATABASE: reactive-flashcard
     ports:
       - "27017:27017"
   box:

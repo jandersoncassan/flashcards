@@ -1,1 +1,10 @@
-spring.application.name=reactive-flashcard
+spring:
+  application:
+    name: reactive-flashcard
+
+  webflux:
+    base-path: /reactive-flashcard
+
+  data:
+    mongodb:
+      uri: mongodb://reactive-flashcard:reactive-flashcard@db:27017/reactive-flashcard?authSource=admin

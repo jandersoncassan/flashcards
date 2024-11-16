@@ -14,7 +14,7 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = {MongoIdValidator.class})
 public @interface MongoId {
 
-    String message() default "{br.com.dio.reactive.flashcard.MongoId.message}";
+    String message() default "{br.com.dio.reactive.flashcard.MongoId.errorDescription}";
 
     Class<?>[] groups() default {};
 
