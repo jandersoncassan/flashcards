@@ -10,6 +10,7 @@ import java.util.List;
 public record ProblemResponse(Integer status,
                               OffsetDateTime timestamp,
                               String errorDescription,
+                              String path,
                               List<ErrorFieldResponse> fields) {
 
     @Builder(toBuilder = true)
