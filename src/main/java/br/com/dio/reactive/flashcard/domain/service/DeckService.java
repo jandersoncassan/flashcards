@@ -21,6 +21,8 @@ public class DeckService {
     }
 
     public Flux<DeckDocument> findAll(){
-        return deckRepository.findAll();
+        return deckRepository.findAll()
+                .doFirst(() -> log.info( " ==== get all decks"))
+                .doOnError(e -> log.error("=== an error occurred in get all decks"));
     }
 }
