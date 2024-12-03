@@ -10,6 +10,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
+import static br.com.dio.reactive.flashcard.domain.exception.BaseErrorMessage.USER_NOT_FOUND;
+
 
 @Service
 @Slf4j
@@ -21,7 +23,7 @@ public class UserQueryService {
   public Mono<UserDocument> findById(final String id){
       return userRepository.findById(id)
               .filter(Objects::nonNull)
-              .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(BaseErrorMessage.USER_NOT_FOUND.params("id", id).getMessage()))))
+              .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(USER_NOT_FOUND.params("id", id).getMessage()))))
               .doFirst(() -> log.info(" ==== try to find use with id {}", id));
 
   }
@@ -29,7 +31,7 @@ public class UserQueryService {
     public Mono<UserDocument> findByEmail(final String email){
         return userRepository.findByEmail(email)
                 .filter(Objects::nonNull)
-                .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(BaseErrorMessage.USER_NOT_FOUND.params("email", email).getMessage()))))
+                .switchIfEmpty(Mono.defer(() -> Mono.error(new NotFoundException(USER_NOT_FOUND.params("email", email).getMessage()))))
                 .doFirst(() -> log.info(" ==== try to find user with email {}", email));
 
     }

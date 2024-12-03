@@ -1,5 +1,6 @@
 package br.com.dio.reactive.flashcard.api.controller.handler;
 
+import br.com.dio.reactive.flashcard.domain.exception.EmailAlreadyUsedException;
 import br.com.dio.reactive.flashcard.domain.exception.NotFoundException;
 import br.com.dio.reactive.flashcard.domain.exception.ReactiveFlashcardsException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,7 +24,7 @@ import javax.validation.ConstraintViolationException;
 public class ApiExceptionHandler implements WebExceptionHandler {
 
     //private final DeckInStudyHandler deckInStudyHandler;
-    //private final EmailAlreadyUsedHandler emailAlreadyUsedHandler;
+    private final EmailAlreadyUsedHandler emailAlreadyUsedHandler;
     private final MethodNotAllowHandler methodNotAllowHandler;
     private final NotFoundHandler notFoundHandler;
     private final ConstraintViolationHandler constraintViolationHandler;
@@ -37,7 +38,7 @@ public class ApiExceptionHandler implements WebExceptionHandler {
     public Mono<Void> handle(final ServerWebExchange exchange, final Throwable ex) {
         return Mono.error(ex)
                 //.onErrorResume(DeckInStudyException.class, e -> deckInStudyHandler.handlerException(exchange, e))
-                //.onErrorResume(EmailAlreadyUsedException.class, e -> emailAlreadyUsedHandler.handlerException(exchange, e))
+                .onErrorResume(EmailAlreadyUsedException.class, e -> emailAlreadyUsedHandler.handlerException(exchange, e))
                 .onErrorResume(MethodNotAllowedException.class, e -> methodNotAllowHandler.handlerException(exchange, e))
                 .onErrorResume(NotFoundException.class, e-> notFoundHandler.handlerException(exchange, e))
                 .onErrorResume(ConstraintViolationException.class, e -> constraintViolationHandler.handlerException(exchange, e))

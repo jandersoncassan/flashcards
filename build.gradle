@@ -49,6 +49,10 @@ tasks.named('test') {
 	JUnitPlatformOptions
 }
 
+bootRun{
+	jvmArgs '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005'
+}
+
 jar{
 	enabled = false
 }
